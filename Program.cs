@@ -8,21 +8,35 @@ namespace UnicamMath
         {
             Console.WriteLine("Questo programma calcola l'ipotenusa e gli angoli interni fornendo la lunghezza di due cateti");
 
+            //Chiedo di inserire la lunghezza dei cateti e la salvo nelle stringhe che poi converto in double
             Console.Write("Inserisci la lunghezza del primo cateto: ");
             string cateto1Testuale = Console.ReadLine();
+            double cateto1Numerico = double.Parse(cateto1Testuale);
 
             Console.Write("Inserisci la lunghezza del secondo cateto: ");
             string cateto2Testuale = Console.ReadLine();
+            double cateto2Numerico = double.Parse(cateto2Testuale);
 
-            double ipotenusa = 0;
-            double angolo1 = 90;
-            double angolo2 = 0;
-            double angolo3 = 0;
+            //Per calcolare l'ipotenusa uso il teorema di Pitagora
+            double ipotenusaNumerico = (double) Math.Sqrt(Math.Pow(cateto1Numerico,2) + Math.Pow(cateto2Numerico,2));
 
-            //TO DO
+            //Per calcolare il seno degli angoli uso le formule trigonometriche dei triangoli rettangoli
+            double senoAngolo2 = (double) (cateto1Numerico / ipotenusaNumerico);
+            double senoAngolo3 = (double) (cateto2Numerico / ipotenusaNumerico);
 
-            Console.WriteLine($"L'ipotenusa misura {ipotenusa}");
-            Console.WriteLine($"I tre angoli interni misurano {angolo1} gradi, {angolo2} gradi e {angolo3} gradi.");
+            double angolo1InGradi = 90;
+
+            //Per calcolare gli angoli uso la funzione Asin (arcseno) --> mi ritorna l'angolo in radianti
+            double angolo2InRadianti = (double)(Math.Asin(senoAngolo2));
+            double angolo3InRadianti = (double)(Math.Asin(senoAngolo3));
+
+            //Converto i radianti in gradi
+            double angolo2InGradi = (double) (angolo2InRadianti*180/Math.PI);
+            double angolo3InGradi = (double)(angolo3InRadianti*180/Math.PI);
+
+            //Scrivo su console i risultati ottenuti
+            Console.WriteLine($"L'ipotenusa misura {ipotenusaNumerico}");
+            Console.WriteLine($"I tre angoli interni misurano {angolo1InGradi} gradi, {angolo2InGradi} gradi e {angolo3InGradi} gradi.");
 
             Console.ReadKey();
         }
