@@ -11,21 +11,41 @@ namespace UnicamMath
             //Chiedo di inserire la lunghezza dei cateti e la salvo nelle stringhe che poi converto in double
             Console.Write("Inserisci la lunghezza del primo cateto: ");
             string cateto1Testuale = Console.ReadLine();
-            double cateto1Numerico = double.Parse(cateto1Testuale);
+            double cateto1Numerico = 0;
+            try
+            {
+                cateto1Numerico = double.Parse(cateto1Testuale);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Inserisci un numero corretto");
+                System.Environment.Exit(-1);
+            }
 
+            double cateto2Numerico = 0;
             Console.Write("Inserisci la lunghezza del secondo cateto: ");
             string cateto2Testuale = Console.ReadLine();
-            double cateto2Numerico = double.Parse(cateto2Testuale);
+            try
+            {
+                cateto2Numerico = double.Parse(cateto2Testuale);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Inserisci un numero corretto");
+                System.Environment.Exit(-1);
+            }
 
             //Per calcolare l'ipotenusa uso il teorema di Pitagora
-            double ipotenusaNumerico = (double) Math.Sqrt(Math.Pow(cateto1Numerico,2) + Math.Pow(cateto2Numerico,2));
+            double ipotenusaNumerico = (double)Math.Sqrt(Math.Pow(cateto1Numerico, 2) + Math.Pow(cateto2Numerico, 2));
 
             //Approssimo l'ipotenusa in modo da avere solo 2 cifre decimali
             String ipotenusaDecimale = ipotenusaNumerico.ToString("N2");
 
             //Per calcolare il seno degli angoli uso le formule trigonometriche dei triangoli rettangoli
-            double senoAngolo2 = (double) (cateto1Numerico / ipotenusaNumerico);
-            double senoAngolo3 = (double) (cateto2Numerico / ipotenusaNumerico);
+            double senoAngolo2 = (double)(cateto1Numerico / ipotenusaNumerico);
+            double senoAngolo3 = (double)(cateto2Numerico / ipotenusaNumerico);
 
             double angolo1InGradi = 90;
 
@@ -34,8 +54,8 @@ namespace UnicamMath
             double angolo3InRadianti = (double)(Math.Asin(senoAngolo3));
 
             //Converto i radianti in gradi
-            double angolo2InGradi = (double) (angolo2InRadianti*180/Math.PI);
-            double angolo3InGradi = (double)(angolo3InRadianti*180/Math.PI);
+            double angolo2InGradi = (double)(angolo2InRadianti * 180 / Math.PI);
+            double angolo3InGradi = (double)(angolo3InRadianti * 180 / Math.PI);
 
             //Approssimo gli angoli in modo da avere solo 2 cifre decimali
             string angolo2Decimale = angolo2InGradi.ToString("N2");
