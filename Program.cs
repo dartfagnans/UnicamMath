@@ -20,6 +20,9 @@ namespace UnicamMath
             //Per calcolare l'ipotenusa uso il teorema di Pitagora
             double ipotenusaNumerico = (double) Math.Sqrt(Math.Pow(cateto1Numerico,2) + Math.Pow(cateto2Numerico,2));
 
+            //Approssimo l'ipotenusa in modo da avere solo 2 cifre decimali
+            String ipotenusaDecimale = ipotenusaNumerico.ToString("N2");
+
             //Per calcolare il seno degli angoli uso le formule trigonometriche dei triangoli rettangoli
             double senoAngolo2 = (double) (cateto1Numerico / ipotenusaNumerico);
             double senoAngolo3 = (double) (cateto2Numerico / ipotenusaNumerico);
@@ -34,9 +37,13 @@ namespace UnicamMath
             double angolo2InGradi = (double) (angolo2InRadianti*180/Math.PI);
             double angolo3InGradi = (double)(angolo3InRadianti*180/Math.PI);
 
+            //Approssimo gli angoli in modo da avere solo 2 cifre decimali
+            string angolo2Decimale = angolo2InGradi.ToString("N2");
+            string angolo3Decimale = angolo3InGradi.ToString("N2");
+
             //Scrivo su console i risultati ottenuti
-            Console.WriteLine($"L'ipotenusa misura {ipotenusaNumerico}");
-            Console.WriteLine($"I tre angoli interni misurano {angolo1InGradi} gradi, {angolo2InGradi} gradi e {angolo3InGradi} gradi.");
+            Console.WriteLine($"L'ipotenusa misura {ipotenusaDecimale}");
+            Console.WriteLine($"I tre angoli interni misurano {angolo1InGradi} gradi, {angolo2Decimale} gradi e {angolo3Decimale} gradi.");
 
             Console.ReadKey();
         }
