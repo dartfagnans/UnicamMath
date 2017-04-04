@@ -6,66 +6,73 @@ namespace UnicamMath
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Questo programma calcola l'ipotenusa e gli angoli interni fornendo la lunghezza di due cateti");
-
-            //Chiedo di inserire la lunghezza dei cateti e la salvo nelle stringhe che poi converto in double
-            Console.Write("Inserisci la lunghezza del primo cateto: ");
-            string cateto1Testuale = Console.ReadLine();
-            double cateto1Numerico = 0;
-            try
+            while (true)
             {
-                cateto1Numerico = double.Parse(cateto1Testuale);
+                //Pulisco la Console
+                Console.Clear();
+                
+                Console.WriteLine("Questo programma calcola l'ipotenusa e gli angoli interni fornendo la lunghezza di due cateti");
+                double angoloRetto = 90;
+                double angolo1Radianti = 0;
+                double angolo2Radianti = 0;
+                double angolo1Gradi = 0;
+                double angolo2Gradi = 0;
+                double cateto1 = 0;
+                double cateto2 = 0;
+                double ipotenusa = 0;
+                string cateto1Stringa = "";
+                string cateto2Stringa = "";
+
+                //Ciclo infinito per chiedere un valore corretto di cateto1
+                while (true)
+                {
+                    Console.WriteLine("Inserisci la lunghezza del primo cateto:");
+                    cateto1Stringa = Console.ReadLine();
+                    if (double.TryParse(cateto1Stringa, out cateto1))
+                        break;
+                    else
+                    {
+                        Console.WriteLine($"{cateto1Stringa} non è un valore corretto");
+                        continue;
+                    }
+                }
+                //Ciclo infinito per chiedere un valore corretto di cateto2
+                while (true)
+                {
+                    Console.WriteLine("Inserisci la lunghezza del secondo cateto:");
+                    cateto2Stringa = Console.ReadLine();
+                    if (double.TryParse(cateto2Stringa, out cateto2))
+                        break;
+                    else
+                    {
+                        Console.WriteLine($"{cateto2Stringa} non è un valore corretto");
+                        continue;
+                    }
+                }
+                //Calcolo il valore dell'ipotenusa
+                ipotenusa = Math.Sqrt(Math.Pow(cateto1, 2) + Math.Pow(cateto2, 2));
+                //Calcolo gli angoli
+                double senoAngolo1 = cateto1 / ipotenusa;
+                double senoAngolo2 = cateto2 / ipotenusa;
+                angolo1Radianti = Math.Asin(senoAngolo1);
+                angolo2Radianti = Math.Asin(senoAngolo2);
+                angolo1Gradi = (angolo1Radianti * 180) / Math.PI;
+                angolo2Gradi = (angolo2Radianti * 180) / Math.PI;
+
+                //Creo due variabili string per arrotondare a due cifre decimali i valori degli angoli
+                string angolo1String = angolo1Gradi.ToString("N2");
+                string angolo2String = angolo2Gradi.ToString("N2");
+
+                //Scrivo su console i risultati ottenuti
+                Console.WriteLine($"Cateto1 = {cateto1}; Cateto2 = {cateto2}; Ipotenusa = {ipotenusa}");
+                Console.WriteLine($"AngoloRetto = {angoloRetto}; Angolo1 = {angolo1String}; Angolo2 = {angolo2String}");
+
+                //Aspetto che qualcuno prema invio per terminare il programma
+                Console.WriteLine("Scrivi s per inserire nuovi dati oppure un tasto qualsiasi per terminare");
+                string risposta = Console.ReadLine();
+                if (!risposta.Equals("s"))
+                    break;
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine("Inserisci un numero corretto");
-                System.Environment.Exit(-1);
-            }
-
-            double cateto2Numerico = 0;
-            Console.Write("Inserisci la lunghezza del secondo cateto: ");
-            string cateto2Testuale = Console.ReadLine();
-            try
-            {
-                cateto2Numerico = double.Parse(cateto2Testuale);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine("Inserisci un numero corretto");
-                System.Environment.Exit(-1);
-            }
-
-            //Per calcolare l'ipotenusa uso il teorema di Pitagora
-            double ipotenusaNumerico = (double)Math.Sqrt(Math.Pow(cateto1Numerico, 2) + Math.Pow(cateto2Numerico, 2));
-
-            //Approssimo l'ipotenusa in modo da avere solo 2 cifre decimali
-            String ipotenusaDecimale = ipotenusaNumerico.ToString("N2");
-
-            //Per calcolare il seno degli angoli uso le formule trigonometriche dei triangoli rettangoli
-            double senoAngolo2 = (double)(cateto1Numerico / ipotenusaNumerico);
-            double senoAngolo3 = (double)(cateto2Numerico / ipotenusaNumerico);
-
-            double angolo1InGradi = 90;
-
-            //Per calcolare gli angoli uso la funzione Asin (arcseno) --> mi ritorna l'angolo in radianti
-            double angolo2InRadianti = (double)(Math.Asin(senoAngolo2));
-            double angolo3InRadianti = (double)(Math.Asin(senoAngolo3));
-
-            //Converto i radianti in gradi
-            double angolo2InGradi = (double)(angolo2InRadianti * 180 / Math.PI);
-            double angolo3InGradi = (double)(angolo3InRadianti * 180 / Math.PI);
-
-            //Approssimo gli angoli in modo da avere solo 2 cifre decimali
-            string angolo2Decimale = angolo2InGradi.ToString("N2");
-            string angolo3Decimale = angolo3InGradi.ToString("N2");
-
-            //Scrivo su console i risultati ottenuti
-            Console.WriteLine($"L'ipotenusa misura {ipotenusaDecimale}");
-            Console.WriteLine($"I tre angoli interni misurano {angolo1InGradi} gradi, {angolo2Decimale} gradi e {angolo3Decimale} gradi.");
-
-            Console.ReadKey();
         }
     }
 }
